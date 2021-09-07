@@ -12,6 +12,10 @@ const commandManager = new CommandManager(COMMAND_PREFIX);
 
 commandManager.verbose = true;
 commandManager.registerCommands(path.resolve(__dirname, "./commands"));
+commandManager.registerCommandOnThrottleHandler((msg, cmd, timeLeft) => {
+  const time = (timeLeft / 1000).toFixed(2);
+  msg.channel.send(`You cannot run ${cmd.name} command after ${time} s`);
+})
 
 client.on("ready", () => console.log(client.user?.username, "is ready!"))
 client.on("messageCreate", msg => commandManager.handleMessage(msg));
