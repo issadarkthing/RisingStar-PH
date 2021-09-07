@@ -27,10 +27,10 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@jiman24/commandment@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.0.3.tgz#b0edc7e8d5f76400998ac1641cab7e380b4b7168"
-  integrity sha512-GwUgHKhTHlw0R3g8elBJ6dwEXIFVTWHuX0k6600qLT+sloW5QlaMA7jbmvhKm9GlkxvKGKesuPZBquh2qkeTUQ==
+"@jiman24/commandment@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.0.5.tgz#f4f38388e52707e0f5eb382ab73c783bf2240e99"
+  integrity sha512-VCH/wJapv6GTN+YiuftubiMPEEsUZraDUvtdKwXX0e9xnVniJYaaazdjws/rQacMFSDszaVBuRzFy37Ggu2rhw==
   dependencies:
     chalk "^4.1.2"
     common-tags "^1.8.0"
@@ -47,9 +47,9 @@
   integrity sha512-Qm9hBEBu18wt1PO2flE7LPb30BHMQt1eQgbV76YntdNk73XZGpn3izvGTYxbGgzXKgbCjiia0uxTd3aTNQrY/g==
 
 "@types/node@*":
-  version "16.7.12"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.12.tgz#4e30f80bfa9983fbc3b55875c0522da0303f4e95"
-  integrity sha512-IrhrusVM9QJAn1xLFFqbZH+XCI8L6eZoVHjR4sZeGTBBvjQSuchXGgKpown1jP75TCMSndcbudYBDTekOhcIZA==
+  version "16.7.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.13.tgz#86fae356b03b5a12f2506c6cf6cd9287b205973f"
+  integrity sha512-pLUPDn+YG3FYEt/pHI74HmnJOWzeR+tOIQzUx93pi9M7D8OE7PSLr97HboXwk5F+JS+TLtWuzCOW97AHjmOXXA==
 
 "@types/webidl-conversions@*":
   version "6.1.1"

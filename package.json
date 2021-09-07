@@ -9,7 +9,7 @@
     "dev": "nodemon dist/index.js"
   },
   "dependencies": {
-    "@jiman24/commandment": "^0.0.3",
+    "@jiman24/commandment": "^0.0.5",
     "dotenv": "^10.0.0",
     "mongoose": "^6.0.5",
     "random-js": "^2.1.0"
