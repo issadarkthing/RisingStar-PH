@@ -1,0 +1,15 @@
+{
+  "name": "RisingStar-PH",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build && node dist/index.js",
+    "build": "tsc",
+    "dev": "nodemon dist/index.js"
+  },
+  "dependencies": {
+    "@jiman24/commandment": "^0.0.3",
+    "dotenv": "^10.0.0"
+  }
+}
