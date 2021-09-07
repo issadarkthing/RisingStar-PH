@@ -1,15 +1,13 @@
-import { Command } from "@jiman24/commandment"
 import { Message, MessageEmbed } from "discord.js";
-import { User } from "../database/User";
+import { UserCommand } from "../structure/UserCommand";
 
-
-export default class Balance extends Command {
+export default class Balance extends UserCommand {
   name = "balance";
   aliases = ["bal", "b"];
 
   async exec(msg: Message, args: string[]) {
 
-    const user = await User.findByUserID(msg.author.id);
+    const user = await this.getUser(msg.author.id);
 
     const embed = new MessageEmbed()
       .setTitle("User profile")
