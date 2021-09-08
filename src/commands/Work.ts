@@ -7,7 +7,7 @@ import { random } from "../structure/utils";
 export default class Work extends UserCommand {
   name = "work";
   min = 1;
-  max = 20;
+  max = 10;
 
   async exec(msg: Message, args: string[]) {
 
