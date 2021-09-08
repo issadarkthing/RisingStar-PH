@@ -5,7 +5,6 @@ import { User } from "../database/User";
 export abstract class UserCommand extends Command {
 
   async getUser(userID: string) {
-
     const user = await User.findByUserID(userID);
 
     if (!user) {
