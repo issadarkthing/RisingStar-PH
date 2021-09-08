@@ -7,31 +7,24 @@ export default class Deposit extends UserCommand {
   aliases = ["depo"];
 
   async exec(msg: Message, args: string[]) {
-
     const user = await this.getUser(msg.author.id);
-    let amount = parseInt(args[0]);
+    const arg1 = args[0];
     const template = new EmbedTemplate(msg);
 
-    if (args[0] !== "all") {
-      if (Number.isNaN(amount) || !Number.isInteger(amount)) {
-        template.showError("invalid amount given");
-        return;
-      } else if (amount <= 0) {
-        template.showError("cannot deposit less than 1");
-        return;
-      } else if (amount > user.balance) {
-        template.showError("insufficient amount");
-        return;
-      }
-    } else {
-      amount = user.balance;
+    try { 
+
+      if (arg1 === "all" && user.balance <= 0) 
+        throw new Error("empty balance");
+
+      const amount = this.validateAmount(arg1, user.balance); 
+      user.balance -= amount;
+      user.bank += amount;
+      user.save();
+
+      template.showSuccess(`Successfully deposited $${amount}`);
+    } catch (err) {
+      template.showError(err.message);
+      return;
     }
-
-    user.balance -= amount;
-    user.bank += amount;
-
-    await user.save();
-
-    template.showSuccess(`Successfully deposited $${amount}`);
   }
 }
