@@ -3,8 +3,8 @@ import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { UserCommand } from "../structure/UserCommand";
 import { DateTime } from "luxon";
 
-export default class Claim extends UserCommand {
-  name = "claim";
+export default class Daily extends UserCommand {
+  name = "daily";
   amount = 200;
 
   async exec(msg: Message, args: string[]) {
