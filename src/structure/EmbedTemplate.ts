@@ -1,34 +1,39 @@
 import { User, MessageEmbed, Message } from "discord.js";
 
-
 export class EmbedTemplate {
-  static base(user: User, msg: string) {
+  private msg: Message;
+  private base: MessageEmbed;
+  
+  constructor(msg: Message) {
+    this.msg = msg;
+    this.base = EmbedTemplate.base(msg.author);
+  }
+
+  static base(user: User) {
     const embed = new MessageEmbed()
       .setTitle(`${user.username}#${user.discriminator}`)
-      .setDescription(msg)
 
     return embed;
   }
 
-  static info(user: User, msg: string) {
-    const embed = this.base(user, msg);
+  showInfo(message: string) {
+    const embed = this.base;
     embed.setColor("#1e90ff");
-    return embed;
+    embed.setDescription(message);
+    this.msg.channel.send({ embeds: [embed] });
   }
 
-  static success(user: User, msg: string) {
-    const embed = this.base(user, msg);
+  showSuccess(message: string) {
+    const embed = this.base;
     embed.setColor("#32cd32");
-    return embed;
+    embed.setDescription(message);
+    this.msg.channel.send({ embeds: [embed] });
   }
 
-  static error(user: User, msg: string) {
-    const embed = this.base(user, msg);
+  showError(message: string) {
+    const embed = this.base;
     embed.setColor("#ff4f4f");
-    return embed;
-  }
-
-  static sendEmbed(msg: Message, embed: MessageEmbed) {
-    msg.channel.send({ embeds: [embed] });
+    embed.setDescription(message);
+    this.msg.channel.send({ embeds: [embed] });
   }
 }

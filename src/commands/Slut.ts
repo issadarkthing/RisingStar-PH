@@ -15,15 +15,15 @@ export default class Slut extends UserCommand {
     const user = await this.getUser(msg.author.id);
     const earned = random().integer(this.min, this.max);
     const isSuccess = random().bool(this.successRate);
+    const template = new EmbedTemplate(msg);
 
     if (isSuccess) {
       user.balance += earned;
       await user.save();
-      const message = EmbedTemplate.success(msg.author, `You earned $${earned}!`);
-      EmbedTemplate.sendEmbed(msg, message);
+      const message = `You earned $${earned}!`;
+      template.showSuccess(message);
     } else {
-      const message = EmbedTemplate.error(msg.author, `Slut attempt failed`);
-      EmbedTemplate.sendEmbed(msg, message);
+      template.showError(`Slut attempt failed`);
     }
   }
 }

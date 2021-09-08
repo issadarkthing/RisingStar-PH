@@ -17,7 +17,8 @@ export default class Work extends UserCommand {
     user.balance += earned;
     await user.save();
 
-    const message = EmbedTemplate.success(msg.author, `You earned $${earned}!`);
-    EmbedTemplate.sendEmbed(msg, message);
+    const template = new EmbedTemplate(msg);
+    const message = `You earned $${earned}!`;
+    template.showSuccess(message);
   }
 }
