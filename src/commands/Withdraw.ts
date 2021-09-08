@@ -17,7 +17,7 @@ export default class Withdraw extends UserCommand {
         template.showError("invalid amount given");
         return;
       } else if (amount <= 0) {
-        template.showError("cannot deposit less than 1");
+        template.showError("cannot withdraw less than 1");
         return;
       } else if (amount > user.bank) {
         template.showError("insufficient amount");
