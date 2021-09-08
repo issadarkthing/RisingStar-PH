@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { UserCommand } from "../structure/UserCommand";
 import { random } from "../structure/utils";
 
@@ -16,6 +17,7 @@ export default class Work extends UserCommand {
     user.balance += earned;
     await user.save();
 
-    msg.channel.send(`You earned $${earned}!`);
+    const message = EmbedTemplate.success(msg.author, `You earned $${earned}!`);
+    EmbedTemplate.sendEmbed(msg, message);
   }
 }

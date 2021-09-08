@@ -1,13 +1,14 @@
 import { Message } from "discord.js";
 import { UserCommand } from "../structure/UserCommand";
 import { random } from "../structure/utils";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 
 export default class Slut extends UserCommand {
   name = "slut";
   min = 20;
   max = 40;
   successRate = 0.8;
-  throttle = 60 * 1000; // 60 seconds
+  throttle = 20 * 1000; // 20 seconds
 
   async exec(msg: Message, args: string[]) {
 
@@ -18,9 +19,11 @@ export default class Slut extends UserCommand {
     if (isSuccess) {
       user.balance += earned;
       await user.save();
-      msg.channel.send(`You earned $${earned}!`);
+      const message = EmbedTemplate.success(msg.author, `You earned $${earned}!`);
+      EmbedTemplate.sendEmbed(msg, message);
     } else {
-      msg.channel.send("Slut attempt failed");
+      const message = EmbedTemplate.error(msg.author, `Slut attempt failed`);
+      EmbedTemplate.sendEmbed(msg, message);
     }
   }
 }
