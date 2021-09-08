@@ -7,7 +7,7 @@ export default class Slut extends UserCommand {
   name = "slut";
   min = 20;
   max = 40;
-  successRate = 0.8;
+  successRate = 0.65;
   throttle = 20 * 1000; // 20 seconds
 
   async exec(msg: Message, args: string[]) {
