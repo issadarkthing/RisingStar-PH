@@ -18,14 +18,16 @@ export default class Crime extends UserCommand {
 
     if (isSuccess) {
       user.balance += earned;
-      await user.save();
       const message = `You earned $${earned}!`;
       const template = new EmbedTemplate(msg);
       template.showSuccess(message);
     } else {
-      const message = `Crime attempt failed`;
+      user.balance += earned;
+      const message = `Crime attempt failed. You got fined $${earned}`;
       const template = new EmbedTemplate(msg);
       template.showError(message);
     }
+
+    user.save();
   }
 }
