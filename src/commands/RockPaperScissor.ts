@@ -1,12 +1,36 @@
-import { Command } from "@jiman24/commandment";
-import { Message, MessageActionRow, MessageButton, MessageComponentInteraction } from "discord.js";
+import { Message, MessageActionRow, MessageButton, MessageComponentInteraction, Collection } from "discord.js";
+import { UserDocument } from "../database/User";
 import { Options, Result, RockPaperScissors } from "../structure/RockPaperScissor";
+import { UserCommand } from "../structure/UserCommand";
 
-export default class extends Command {
+export default class extends UserCommand {
   name = "rockpaperscissor";
   aliases = ["rps"];
   
   async exec(msg: Message, args: string[]) {
+
+    const [arg1] = args;
+    const mentions = msg.mentions.members;
+    const opponent = mentions?.first();
+
+    if (!opponent)
+      return msg.channel.send(`You need to mention a player`);
+
+    const p1 = await this.getUser(msg.author.id);
+    const p2 = await this.getUser(opponent.id);
+    let amount = 0;
+    const players = new Collection<string, UserDocument>();
+    players.set(p1.userID, p1);
+    players.set(p2.userID, p2);
+
+    try {
+      amount = this.validateAmount(arg1, p1.balance);
+      amount = this.validateAmount(arg1, p2.balance);
+
+    } catch (err) {
+      msg.channel.send(err.message);
+      return;
+    }
 
     const rock = new MessageButton()
       .setCustomId(Options.ROCK)
@@ -30,25 +54,48 @@ export default class extends Command {
 
     const filter = (i: MessageComponentInteraction) => {
       i.deferUpdate();
-      return i.user.id === msg.author.id;
+      return i.user.id === msg.author.id || i.user.id === opponent.id;
     };
 
-    const collector = msg.channel.createMessageComponentCollector({ filter, max: 1 });
+    const collector = msg.channel.createMessageComponentCollector({ filter, max: 2 });
 
-    collector.on("end", async (button) => {
-      const id = button.first()?.customId as Options | undefined;
+    collector.on("end", async (buttons) => {
+      const [[, button1], [, button2]] = buttons;
 
-      if (!id) return;
+      if (!button1 || !button2) {
+        msg.channel.send("no response");
+        return
+      }
 
-
-      const result = RockPaperScissors.random(id);
+      const result = RockPaperScissors.play(
+        button1.customId as Options,
+        button2.customId as Options,
+      );
+        
+      msg.channel.send(`${button1.user.username} chosed ${button1.customId}`);
+      msg.channel.send(`${button2.user.username} chosed ${button2.customId}`);
 
       if (result === Result.WIN) {
-        msg.channel.send("You won!");
+        msg.channel.send(`${button1.user.username} wins ${amount} coins`)
+        const p1 = players.get(button1.user.id)!;
+        const p2 = players.filter(x => x.userID !== p1.userID).first()!;
+        p1.balance += amount;
+        p2.balance -= amount;
+
+        await p1.save();
+        await p2.save();
+
       } else if (result === Result.DRAW) {
         msg.channel.send("Draw!");
       } else if (result === Result.LOSE) {
-        msg.channel.send("You lose!");
+        msg.channel.send(`${button2.user.username} wins ${amount} coins`);
+        const p1 = players.get(button1.user.id)!;
+        const p2 = players.filter(x => x.userID !== p1.userID).first()!;
+        p1.balance -= amount;
+        p2.balance += amount;
+
+        await p1.save();
+        await p2.save();
       }
 
       await message.delete();

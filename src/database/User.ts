@@ -12,14 +12,14 @@ userSchema.statics.findByUserID = function(userID: string) {
   return this.findOne({ userID });
 }
 
-interface UserDocument extends Document {
+export interface UserDocument extends Document {
   userID: string;
   balance: number;
   bank: number;
   lastDailyClaim?: Date;
 };
 
-interface UserModel extends Model<UserDocument> {
+export interface UserModel extends Model<UserDocument> {
   findByUserID(userID: string): Promise<UserDocument>;
 };
 
