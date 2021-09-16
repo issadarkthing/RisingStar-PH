@@ -31,10 +31,10 @@ export abstract class UserCommand extends Command {
   }
 
   async getUser(userID: string) {
-    const user = await User.findByUserID(userID);
+    let user = await User.findByUserID(userID);
 
     if (!user) {
-      const user = new User({ userID });
+      user = new User({ userID });
       await user.save();
     }
 
