@@ -20,20 +20,20 @@ export class EmbedTemplate {
     const embed = this.base;
     embed.setColor("#1e90ff");
     embed.setDescription(message);
-    this.msg.channel.send({ embeds: [embed] });
+    return this.msg.channel.send({ embeds: [embed] });
   }
 
   showSuccess(message: string) {
     const embed = this.base;
     embed.setColor("#32cd32");
     embed.setDescription(message);
-    this.msg.channel.send({ embeds: [embed] });
+    return this.msg.channel.send({ embeds: [embed] });
   }
 
   showError(message: string) {
     const embed = this.base;
     embed.setColor("#ff4f4f");
     embed.setDescription(message);
-    this.msg.channel.send({ embeds: [embed] });
+    return this.msg.channel.send({ embeds: [embed] });
   }
 }
