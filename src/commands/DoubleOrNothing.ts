@@ -4,7 +4,7 @@ import { UserCommand } from "../structure/UserCommand";
 import { random, sleep } from "../structure/utils";
 
 export default class extends UserCommand {
-  name = "doubleornothing";
+  name = "double-or-nothing";
   aliases = ["don"];
 
   async exec(msg: Message, args: string[]) {
@@ -13,7 +13,7 @@ export default class extends UserCommand {
 
     const loadingMessage = await embed.showInfo("Calculating the odds..");
 
-    await sleep(3);
+    await sleep(4);
     await loadingMessage.delete();
 
     const win = random().bool();
