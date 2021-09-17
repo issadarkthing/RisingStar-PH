@@ -5,6 +5,7 @@ import { random } from "../structure/utils";
 
 export default class extends UserCommand {
   name = "rob";
+  throttle = 60 * 1000; // 1 minute
 
   async exec(msg: Message, args: string[]) {
 
