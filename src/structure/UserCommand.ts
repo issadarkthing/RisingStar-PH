@@ -1,6 +1,16 @@
 import { Command } from "@jiman24/commandment";
+import { GuildMember, Message, MessageActionRow, MessageButton } from "discord.js";
 import { User } from "../database/User";
 
+export interface Button {
+  id: string;
+  label: string;
+}
+
+export interface CollectOptions {
+  timeout: number;
+  multi: boolean;
+}
 
 export abstract class UserCommand extends Command {
 
@@ -29,6 +39,64 @@ export abstract class UserCommand extends Command {
 
     return maxAmount;
   }
+
+
+  async collect(
+    msg: Message, 
+    text: string,
+    buttons: Button[], 
+    option?: Partial<CollectOptions>,
+  ) : Promise<Map<GuildMember, string[]>> {
+
+    const row = new MessageActionRow()
+
+    for (const button of buttons) {
+
+      const btn = new MessageButton()
+        .setCustomId(button.id)
+        .setLabel(button.label)
+        .setStyle("PRIMARY");
+
+      row.addComponents(btn);
+    }
+
+    const seconds = option?.timeout || 20;
+
+    const message = await msg.channel
+      .send({ content: text, components: [row] });
+
+    const collector = msg.channel
+      .createMessageComponentCollector({ time: seconds * 1000 });
+
+    const result = new Map<GuildMember, string[]>();
+
+    collector.on("collect", async button => {
+      const { member, customId: id } = button;
+
+      if (member instanceof GuildMember) {
+
+        if (result.has(member) && option?.multi) {
+          result.get(member)?.push(id);
+        } else {
+          result.set(member, [id]);
+        }
+
+        button.reply({ 
+          content: `${member.displayName} clicked ${id}`, 
+          ephemeral: true,
+        });
+      }
+
+    })
+
+    return new Promise(res => {
+      collector.on("end", async () => { 
+        await message.delete();
+        res(result);
+      });
+    })
+  }
+
 
   async getUser(userID: string) {
     let user = await User.findByUserID(userID);
