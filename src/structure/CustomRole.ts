@@ -1,5 +1,6 @@
-import { Guild, Role } from "discord.js";
+import { Guild, MessageEmbed, Role } from "discord.js";
 import { RoleDocument } from "../database/Role";
+import { BROWN } from "./utils";
 
 export class CustomRole {
   roleDB: RoleDocument;
@@ -15,5 +16,17 @@ export class CustomRole {
     }
 
     this.role = role;
+  }
+
+  show() {
+
+    const embed = new MessageEmbed()
+      .setColor(BROWN)
+      .setTitle("Custom Role")
+      .setDescription(`${this.role}`)
+      .addField("Price", this.roleDB.price.toString(), true)
+      .addField("Expires", this.roleDB.duration.toString(), true)
+
+    return embed;
   }
 }
