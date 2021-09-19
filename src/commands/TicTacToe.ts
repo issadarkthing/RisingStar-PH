@@ -1,5 +1,6 @@
 import { UserCommand } from "../structure/UserCommand";
 import { Message } from "discord.js";
+//@ts-ignore
 import TicTacToe from "discord-tictactoe";
     
 const game = new TicTacToe({ language: 'en' });
