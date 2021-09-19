@@ -77,12 +77,21 @@ export abstract class UserCommand extends Command {
 
         if (result.has(member) && option?.multi) {
           result.get(member)?.push(id);
+        } else if (result.has(member)) {
+           
+          const selected = result.get(member)!;
+          button.reply({ 
+            content: `You already chosen ${selected}`, 
+            ephemeral: true,
+          });
+
+          return;
         } else {
           result.set(member, [id]);
         }
 
         button.reply({ 
-          content: `${member.displayName} clicked ${id}`, 
+          content: `You clicked ${id}`, 
           ephemeral: true,
         });
       }
