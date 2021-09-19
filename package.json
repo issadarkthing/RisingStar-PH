@@ -20,6 +20,6 @@
     "random-js": "^2.1.0"
   },
   "devDependencies": {
-    "@types/luxon": "^2.0.3"
+    "@types/luxon": "^2.0.4"
   }
 }
