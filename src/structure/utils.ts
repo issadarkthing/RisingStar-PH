@@ -8,6 +8,11 @@ export function sleep(seconds: number) {
   })
 }
 
+export function toNList(items: string[], start = 1) {
+  if (items.length < 0) return "none";
+  return items.map((x, i) => `${i + start}. ${x}`).join("\n");
+}
+
 export const RED = "#FF0000";
 export const GREEN = "#008000";
 export const GOLD = "#ffd700";
