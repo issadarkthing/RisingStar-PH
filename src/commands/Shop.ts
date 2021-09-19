@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from "discord.js";
+import { Message, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from "discord.js";
 import { UserCommand } from "../structure/UserCommand";
 import { Role } from "../database/Role";
 import { BROWN, toNList } from "../structure/utils";
@@ -23,7 +23,32 @@ export default class extends UserCommand {
       }
 
       const info = selected.show();
-      msg.channel.send({ embeds: [info] });
+
+      const button = new MessageButton()
+        .setCustomId("buy")
+        .setLabel("buy")
+        .setStyle("PRIMARY");
+
+      const row = new MessageActionRow()
+        .addComponents(button);
+
+      msg.channel.send({ embeds: [info], components: [row] });
+
+      const filter = (i: MessageComponentInteraction) => {
+        i.deferUpdate();
+        return i.user.id === msg.author.id;
+      }
+
+      const collector = msg.channel.createMessageComponentCollector({ max: 1, filter });
+
+      collector.on("end", buttons => {
+        const button = buttons.first();
+
+        if (!button) return;
+
+        selected.buy(msg);
+      })
+
       return;
     }
 
