@@ -43,15 +43,16 @@ export class CustomRole {
       return msg.channel.send("insufficient balance");
     }
 
-    user.balance -= this.roleDB.price;
-    await user.save();
-
     const member = this.guild.members.cache.find(member => member.id === userID);
 
     if (!member)
       return msg.channel.send("member not found");
 
     await member.roles.add(this.role);
+
+    user.balance -= this.roleDB.price;
+    user.roles.push({ roleID: this.role.id, since: new Date() });
+    await user.save();
 
     msg.channel.send("purchase successful");
   }
