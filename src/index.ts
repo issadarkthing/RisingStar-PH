@@ -3,6 +3,7 @@ import { CommandManager } from "@jiman24/commandment";
 import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import CoinDrop from "./commands/CoinDrop";
 
 dotenv.config();
 
@@ -23,7 +24,18 @@ commandManager.registerCommandOnThrottleHandler((msg, cmd, timeLeft) => {
 })
 
 client.on("ready", () => console.log(client.user?.username, "is ready!"))
-client.on("messageCreate", msg => commandManager.handleMessage(msg));
+
+let messageCount = 0;
+client.on("messageCreate", msg => { 
+  messageCount++;
+  commandManager.handleMessage(msg); 
+
+  const coinDrop = new CoinDrop();
+  if (messageCount >= coinDrop.spawnAt) {
+    messageCount = 0; 
+    coinDrop.exec(msg);
+  }
+});
 
 client.login(process.env.BOT_TOKEN);
 mongoose.connect(process.env.DB_URI!)

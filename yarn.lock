@@ -32,10 +32,10 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@jiman24/commandment@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.0.5.tgz#f4f38388e52707e0f5eb382ab73c783bf2240e99"
-  integrity sha512-VCH/wJapv6GTN+YiuftubiMPEEsUZraDUvtdKwXX0e9xnVniJYaaazdjws/rQacMFSDszaVBuRzFy37Ggu2rhw==
+"@jiman24/commandment@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.1.5.tgz#2ee2e900351be4f4d373af694807d63e1d318677"
+  integrity sha512-3zinrIR+2gKpXlAr7VQ2utff8cgJ5W79OhoEg4r9gijwNUtRaqmd+KHGu3Hg+XdYWMLdwY6tW67F+NinBMH3uQ==
   dependencies:
     chalk "^4.1.2"
     common-tags "^1.8.0"
