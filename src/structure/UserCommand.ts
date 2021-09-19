@@ -1,5 +1,5 @@
 import { Command } from "@jiman24/commandment";
-import { GuildMember, Message, MessageActionRow, MessageButton } from "discord.js";
+import { GuildMember, Message, MessageActionRow, MessageButton, MessageCollector } from "discord.js";
 import { User } from "../database/User";
 
 export interface Button {
@@ -106,6 +106,28 @@ export abstract class UserCommand extends Command {
     })
   }
 
+  async ask(msg: Message, text: string) {
+
+    await msg.channel.send(text);
+
+    const filter = (response: Message) => response.author.id === msg.author.id;
+    const collector = new MessageCollector(
+      msg.channel, 
+      { time: 30 * 1000, filter, max: 1 },
+    );
+
+    return new Promise<string>((resolve, reject) => {
+      collector.on("end", results => {
+        const result = results.first();
+        if (!result) {
+          reject("no input was given");
+          return;
+        }
+
+        resolve(result.content);
+      })
+    })
+  }
 
   async getUser(userID: string) {
     let user = await User.findByUserID(userID);
