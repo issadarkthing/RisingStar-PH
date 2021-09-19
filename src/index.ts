@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import CoinDrop from "./commands/CoinDrop";
+import { CustomRole } from "./structure/CustomRole";
 
 dotenv.config();
 
@@ -27,8 +28,13 @@ client.on("ready", () => console.log(client.user?.username, "is ready!"))
 
 let messageCount = 0;
 client.on("messageCreate", msg => { 
+
+  if (!msg.guild) return;
+
   messageCount++;
   commandManager.handleMessage(msg); 
+
+  CustomRole.checkRoles(msg.guild);
 
   const coinDrop = new CoinDrop();
   if (messageCount >= coinDrop.spawnAt) {
