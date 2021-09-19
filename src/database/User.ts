@@ -6,6 +6,7 @@ const userSchema = new Schema({
   balance: { type: Number, default: 0 },
   bank: { type: Number, default: 0 },
   lastDailyClaim: Date,
+  roles: { type: [String], default: [] },
 });
 
 userSchema.statics.findByUserID = function(userID: string) {
@@ -16,6 +17,7 @@ export interface UserDocument extends Document {
   userID: string;
   balance: number;
   bank: number;
+  roles: string[];
   lastDailyClaim?: Date;
 };
 
