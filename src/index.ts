@@ -7,7 +7,12 @@ import mongoose from "mongoose";
 dotenv.config();
 
 const COMMAND_PREFIX = "!";
-const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
+export const client = new Client({ intents: [
+  "GUILDS", 
+  "GUILD_MESSAGES", 
+  "GUILD_MEMBERS",
+  "DIRECT_MESSAGES",
+] });
 const commandManager = new CommandManager(COMMAND_PREFIX);
 
 commandManager.verbose = true;
