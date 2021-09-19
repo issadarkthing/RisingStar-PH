@@ -4,7 +4,7 @@ import { Options, Result, RockPaperScissors } from "../structure/RockPaperScisso
 import { UserCommand } from "../structure/UserCommand";
 
 export default class extends UserCommand {
-  name = "rockpaperscissor";
+  name = "rock-paper-scissor";
   aliases = ["rps"];
   
   async exec(msg: Message, args: string[]) {
