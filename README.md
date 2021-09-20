@@ -9,7 +9,16 @@
 5. run `npm run start`
 
 
+## Create a bot
+You need to have a bot by using your own discord account. You can find the guide
+to create bot application
+[here](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot).
+After that, you need to grab the bot's token and follow the next step.
+
+
 ## .env file content
+The `.env` file contains configuration for your bot. This includes your bot
+token, bot's prefix and mongodb uri.
 
 ```
 BOT_TOKEN=<your bot token>
