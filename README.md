@@ -15,6 +15,7 @@
 BOT_TOKEN=<your bot token>
 DB_URI=<your mongodb uri>
 PREFIX=<your bot prefix>
+VERFIED_ROLE_ID=<role given after user passed captcha test>
 ```
 
 ## Basic

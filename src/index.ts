@@ -8,7 +8,7 @@ import { CustomRole } from "./structure/CustomRole";
 
 dotenv.config();
 
-const COMMAND_PREFIX = "!";
+const COMMAND_PREFIX = process.env.PREFIX || "!";
 export const client = new Client({ intents: [
   "GUILDS", 
   "GUILD_MESSAGES", 
