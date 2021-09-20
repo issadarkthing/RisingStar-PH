@@ -5,6 +5,7 @@ export class Challenger extends Fighter {
   readonly DIFF = 2;
   private player: Player;
   drop = random().integer(150, 500);
+  xpDrop = random().integer(10, 35);
   
   constructor(player: Player) {
     super(random().pick(names));

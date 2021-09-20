@@ -4,6 +4,8 @@ import { Model, model, Schema, Document } from "mongoose";
 const userSchema = new Schema({
   userID: String,
   balance: { type: Number, default: 0 },
+  xp: { type: Number, default: 5 },
+  level: { type: Number, default: 1 },
   bank: { type: Number, default: 0 },
   lastDailyClaim: Date,
   roles: { type: [{ roleID: String, since: Date }], default: [] },
@@ -18,6 +20,8 @@ userSchema.statics.findByUserID = function(userID: string) {
 export interface UserDocument extends Document {
   userID: string;
   balance: number;
+  xp: number;
+  level: number;
   bank: number;
   roles: { roleID: string, since: Date }[];
   lastDailyClaim?: Date;

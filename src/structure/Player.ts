@@ -3,6 +3,7 @@ import { Player as PlayerRPG } from "discordjs-rpg";
 import { User, UserDocument } from "../database/User";
 import { BasePet } from "./Pet";
 import { BaseArmor } from "./Armor";
+import { inlineCode } from "./utils";
 
 export class Player extends PlayerRPG {
   private user: UserDocument;
@@ -10,6 +11,10 @@ export class Player extends PlayerRPG {
   constructor(member: GuildMember, user: UserDocument) {
     super(member);
     this.user = user;
+    this.attack += this.level * Math.round(this.attack * 0.1);
+    this.hp += this.level * Math.round(this.hp * 0.1);
+    this.critChance += this.level * this.critChance * 0.001;
+    this.critDamage += this.level * this.critDamage * 0.01;
   }
 
   get balance() {
@@ -18,6 +23,25 @@ export class Player extends PlayerRPG {
 
   set balance(amount: number) {
     this.user.balance = amount;
+  }
+
+  get level() {
+    return this.user.level;
+  }
+
+  get xp() {
+    return this.user.xp;
+  }
+
+  /** adds xp and upgrades level accordingly */
+  addXP(amount: number) {
+    this.user.xp += amount;
+    const requiredXP = this.requiredXP();
+
+    if (this.user.xp >= requiredXP) {
+      this.user.level++;
+      this.addXP(0);
+    }
   }
 
   setPet(pet: BasePet) {
@@ -48,8 +72,22 @@ export class Player extends PlayerRPG {
     profile.fields.at(armorIndex)!.value = this.balance.toString();
     profile.fields.at(armorIndex)!.inline = true;
 
+    profile.addField("Level", inlineCode(this.level), true);
+    profile.addField("xp", `\`${this.xp}/${this.requiredXP()}\``, true);
+
     profile.addField("Armor", armor);
     return profile;
+  }
+
+  /** required xp to upgrade to the next level */
+  private requiredXP() {
+    let x = 10;
+    let lvl = this.level
+    while (lvl > 1) {
+      x += Math.round(x * 0.4);
+      lvl--;
+    }
+    return x;
   }
 
   static async fromMember(member: GuildMember) {
