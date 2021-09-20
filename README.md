@@ -3,7 +3,7 @@
 ## Setting up
 
 1. unzip file
-2. run `npm install`
+2. run `npm install` or `yarn install`
 3. add `.env` file
 4. run `npm run build`
 5. run `npm run start`
@@ -26,4 +26,4 @@ or `!h`.
 ## Customization
 
 There is always an open room for customization. You can modify files in the
-`src/structure` directory.
+`src/structure` or `src/commands` directory.
