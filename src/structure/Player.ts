@@ -33,6 +33,10 @@ export class Player extends PlayerRPG {
     return this.user.xp;
   }
 
+  netWorth() {
+    return this.balance + this.user.bank;
+  }
+
   /** adds xp and upgrades level accordingly */
   addXP(amount: number) {
     this.user.xp += amount;
