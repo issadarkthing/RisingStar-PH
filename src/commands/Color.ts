@@ -26,7 +26,7 @@ export default class Balance extends UserCommand {
 
     try {
       amount = this.validateAmount(arg1, user.balance);
-    } catch (err) {
+    } catch (err: any) {
       msg.channel.send(err.message);
       return;
     }

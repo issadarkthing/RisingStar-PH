@@ -23,7 +23,7 @@ export default class Deposit extends UserCommand {
       user.save();
 
       template.showSuccess(`Successfully deposited $${amount}`);
-    } catch (err) {
+    } catch (err: any) {
       template.showError(err.message);
       return;
     }

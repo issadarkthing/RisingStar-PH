@@ -38,7 +38,7 @@ export default class extends UserCommand {
 
       msg.channel.send(`Succesfully created ${roleName}!`);
 
-    } catch (err) {
+    } catch (err: any) {
 
       msg.channel.send(err.message);
     }

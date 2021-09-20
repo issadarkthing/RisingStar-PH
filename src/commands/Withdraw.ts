@@ -23,7 +23,7 @@ export default class Withdraw extends UserCommand {
       user.save();
 
       template.showSuccess(`Successfully withdrew $${amount}`);
-    } catch (err) {
+    } catch (err: any) {
       template.showError(err.message);
       return;
     }
