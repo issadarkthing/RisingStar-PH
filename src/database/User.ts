@@ -7,6 +7,8 @@ const userSchema = new Schema({
   bank: { type: Number, default: 0 },
   lastDailyClaim: Date,
   roles: { type: [{ roleID: String, since: Date }], default: [] },
+  pet: String,
+  armor: [String],
 });
 
 userSchema.statics.findByUserID = function(userID: string) {
@@ -19,6 +21,8 @@ export interface UserDocument extends Document {
   bank: number;
   roles: { roleID: string, since: Date }[];
   lastDailyClaim?: Date;
+  pet: string;
+  armor: string[];
 };
 
 export interface UserModel extends Model<UserDocument> {

@@ -3,9 +3,8 @@ import { UserCommand } from "../structure/UserCommand";
 
 export default class extends UserCommand {
   name = "ping";
-  aliases = ["p"];
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
     msg.channel.send("pong");
 
     const player = await this.getUser(msg.author.id);
