@@ -9,6 +9,7 @@ import { BasePet } from "../structure/Pet";
 
 export default class extends UserCommand {
   name = "shop";
+  description = "buy custom role and rpg stuff";
 
   async exec(msg: Message, args: string[]) {
 

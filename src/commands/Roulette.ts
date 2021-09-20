@@ -4,6 +4,7 @@ import { random } from "../structure/utils";
 
 export default class extends UserCommand {
   name = "roulette";
+  description = "play roulette and earn money";
 
   async exec(msg: Message, args: string[]) {
 

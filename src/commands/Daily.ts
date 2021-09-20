@@ -6,6 +6,7 @@ import { DateTime } from "luxon";
 export default class Daily extends UserCommand {
   name = "daily";
   amount = 200;
+  description = "claim your daily coin";
 
   async exec(msg: Message, args: string[]) {
 

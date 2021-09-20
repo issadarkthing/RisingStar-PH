@@ -15,14 +15,15 @@ export const client = new Client({ intents: [
   "GUILD_MEMBERS",
   "DIRECT_MESSAGES",
 ] });
-const commandManager = new CommandManager(COMMAND_PREFIX);
+
+export const commandManager = new CommandManager(COMMAND_PREFIX);
 
 commandManager.verbose = true;
 commandManager.registerCommands(path.resolve(__dirname, "./commands"));
 commandManager.registerCommandOnThrottleHandler((msg, cmd, timeLeft) => {
   const time = Math.round(timeLeft / 1000);
   msg.channel.send(`You cannot run ${cmd.name} command after ${time} s`);
-})
+});
 
 client.on("ready", () => console.log(client.user?.username, "is ready!"))
 

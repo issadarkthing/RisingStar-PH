@@ -6,8 +6,9 @@ import { random } from "../structure/utils";
 export default class extends UserCommand {
   name = "rob";
   throttle = 60 * 1000; // 1 minute
+  description = "attempt rob";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const mentionedMember = msg.mentions.members?.first();
     const embed = new EmbedTemplate(msg);

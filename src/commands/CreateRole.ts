@@ -5,6 +5,7 @@ import { Role } from "../database/Role";
 export default class extends UserCommand {
   name = "create-role";
   aliases = ["cr"];
+  description = "create custom role";
 
   async exec(msg: Message) {
 

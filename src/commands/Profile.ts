@@ -6,6 +6,7 @@ import { UserCommand } from "../structure/UserCommand";
 export default class extends UserCommand {
   name = "profile";
   aliases = ["p"];
+  description = "show player's rpg profile";
 
   async exec(msg: Message) {
 

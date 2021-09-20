@@ -32,10 +32,10 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@jiman24/commandment@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.1.5.tgz#2ee2e900351be4f4d373af694807d63e1d318677"
-  integrity sha512-3zinrIR+2gKpXlAr7VQ2utff8cgJ5W79OhoEg4r9gijwNUtRaqmd+KHGu3Hg+XdYWMLdwY6tW67F+NinBMH3uQ==
+"@jiman24/commandment@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.2.5.tgz#070769cacfda4664b065d991a0ce8980c93c699a"
+  integrity sha512-ZtlxntMkeQWfGxa9GSp0hfJg3b5Fg11jksWX3/OyXZPz9STEGD+5nedZlBXKXE1Yg3pMyHR8U/2Ia7oMAPGdzQ==
   dependencies:
     chalk "^4.1.2"
     common-tags "^1.8.0"
@@ -65,6 +65,11 @@
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.0.1.tgz#d26729db850fa327b7cacc5522252194404226f5"
   integrity sha512-Qm9hBEBu18wt1PO2flE7LPb30BHMQt1eQgbV76YntdNk73XZGpn3izvGTYxbGgzXKgbCjiia0uxTd3aTNQrY/g==
+
+"@types/common-tags@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@types/common-tags/-/common-tags-1.8.1.tgz#a5a49ca5ebbb58e0f8947f3ec98950c8970a68a9"
+  integrity sha512-20R/mDpKSPWdJs5TOpz3e7zqbeCNuMCPhV7Yndk9KU2Rbij2r5W4RzwDPkzC+2lzUqXYu9rFzTktCBnDjHuNQg==
 
 "@types/luxon@^2.0.4":
   version "2.0.4"

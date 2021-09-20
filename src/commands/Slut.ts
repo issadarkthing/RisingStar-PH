@@ -9,8 +9,9 @@ export default class Slut extends UserCommand {
   max = 50;
   successRate = 0.65;
   throttle = 20 * 1000; // 20 seconds
+  description = "attempt to slut";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const user = await this.getUser(msg.author.id);
     const earned = random().integer(this.min, this.max);

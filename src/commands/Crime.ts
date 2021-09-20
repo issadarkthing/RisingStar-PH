@@ -9,6 +9,7 @@ export default class Crime extends UserCommand {
   max = 120;
   successRate = 0.35;
   throttle = 40 * 1000; // 40 seconds
+  description = "do crime and earn money";
 
   async exec(msg: Message, args: string[]) {
 

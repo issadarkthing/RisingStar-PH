@@ -7,8 +7,9 @@ import { random } from "../structure/utils";
 export default class extends UserCommand {
   name = "quiz";
   aliases = ["q"];
+  description = "play quiz game";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const dbPath = path.resolve("quiz.json");
     const file = fs.readFileSync(dbPath, { encoding: "utf8" });

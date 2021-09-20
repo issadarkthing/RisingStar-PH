@@ -7,6 +7,7 @@ import { bold, sleep } from "../structure/utils";
 
 export default class extends UserCommand {
   name = "battle";
+  description = "rpg battle";
 
   async exec(msg: Message) {
 

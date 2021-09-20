@@ -6,6 +6,7 @@ import { random, sleep } from "../structure/utils";
 export default class extends UserCommand {
   name = "chicken-fight";
   aliases = ["cf"];
+  description = "fight but with chicken";
   winningChance = 0.65;
 
   async exec(msg: Message, args: string[]) {

@@ -6,8 +6,9 @@ import { client } from "../index";
 
 export default class extends UserCommand {
   name = "verify";
+  description = "do captcha and get verified";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const captcha = new Captcha(client, {
       guildID: msg.guild!.id,

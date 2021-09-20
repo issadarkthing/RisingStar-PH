@@ -3,8 +3,9 @@ import { UserCommand } from "../structure/UserCommand";
 
 export default class Bank extends UserCommand {
   name = "bank";
+  description = "show player's bank balance";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const user = await this.getUser(msg.author.id);
 

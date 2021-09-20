@@ -5,6 +5,7 @@ import { UserCommand } from "../structure/UserCommand";
 export default class Withdraw extends UserCommand {
   name = "withdraw";
   aliases = ["wd"];
+  description = "cash out";
 
   async exec(msg: Message, args: string[]) {
     const user = await this.getUser(msg.author.id);

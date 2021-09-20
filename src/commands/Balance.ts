@@ -4,6 +4,7 @@ import { UserCommand } from "../structure/UserCommand";
 export default class Balance extends UserCommand {
   name = "balance";
   aliases = ["bal", "b"];
+  description = "show player's balance";
 
   async exec(msg: Message, args: string[]) {
 

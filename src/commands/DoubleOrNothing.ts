@@ -6,8 +6,9 @@ import { random, sleep } from "../structure/utils";
 export default class extends UserCommand {
   name = "double-or-nothing";
   aliases = ["don"];
+  description = "all in";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const embed = new EmbedTemplate(msg);
 

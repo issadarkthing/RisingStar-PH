@@ -6,6 +6,7 @@ import { UserCommand } from "../structure/UserCommand";
 export default class extends UserCommand {
   name = "rock-paper-scissor";
   aliases = ["rps"];
+  description = "play rock paper scissors like the old days";
   
   async exec(msg: Message, args: string[]) {
 

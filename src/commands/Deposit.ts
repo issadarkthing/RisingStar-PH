@@ -5,6 +5,7 @@ import { UserCommand } from "../structure/UserCommand";
 export default class Deposit extends UserCommand {
   name = "deposit";
   aliases = ["depo"];
+  description = "deposit to bank";
 
   async exec(msg: Message, args: string[]) {
     const user = await this.getUser(msg.author.id);

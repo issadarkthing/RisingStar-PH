@@ -5,6 +5,7 @@ import { random, sleep } from "../structure/utils";
 
 export default class Balance extends UserCommand {
   name = "color";
+  description = "color game";
   colors = {
     green: "🍏",
     yellow: "🌻",
