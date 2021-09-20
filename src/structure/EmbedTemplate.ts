@@ -16,24 +16,39 @@ export class EmbedTemplate {
     return embed;
   }
 
-  showInfo(message: string) {
+  info(message: string) {
     const embed = this.base;
     embed.setColor("#1e90ff");
     embed.setDescription(message);
+    return embed;
+  }
+
+  success(message: string) {
+    const embed = this.base;
+    embed.setColor("#32cd32");
+    embed.setDescription(message);
+    return embed;
+  }
+
+  error(message: string) {
+    const embed = this.base;
+    embed.setColor("#ff4f4f");
+    embed.setDescription(message);
+    return embed;
+  }
+
+  showInfo(message: string) {
+    const embed = this.info(message);
     return this.msg.channel.send({ embeds: [embed] });
   }
 
   showSuccess(message: string) {
-    const embed = this.base;
-    embed.setColor("#32cd32");
-    embed.setDescription(message);
+    const embed = this.success(message);
     return this.msg.channel.send({ embeds: [embed] });
   }
 
   showError(message: string) {
-    const embed = this.base;
-    embed.setColor("#ff4f4f");
-    embed.setDescription(message);
+    const embed = this.error(message);
     return this.msg.channel.send({ embeds: [embed] });
   }
 }

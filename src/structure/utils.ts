@@ -1,3 +1,4 @@
+import { DMChannel, TextChannel } from "discord.js";
 import { Random, MersenneTwister19937 } from "random-js";
 
 export const random = () => new Random(MersenneTwister19937.autoSeed());
@@ -19,6 +20,17 @@ export function sleep(seconds: number) {
 export function toNList(items: string[], start = 1) {
   if (items.length < 0) return "none";
   return items.map((x, i) => `${i + start}. ${x}`).join("\n");
+}
+
+export async function nukeChannel(channel: TextChannel | DMChannel) {
+  let deleted = 0;
+  do {
+    const messages = await channel.messages.fetch({ limit: 100 });
+    for (const message of messages.values()) {
+      await message.delete();
+    }
+    deleted = messages.size;
+  } while (deleted > 0);
 }
 
 export const RED = "#FF0000";
