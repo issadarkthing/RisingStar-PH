@@ -4,9 +4,12 @@ import { User, UserDocument } from "../database/User";
 import { BasePet } from "./Pet";
 import { BaseArmor } from "./Armor";
 import { inlineCode } from "./utils";
+import { Item } from "./Item";
+import { Chicken } from "../structure/Chicken";
 
 export class Player extends PlayerRPG {
   private user: UserDocument;
+  inventory: Item[] = [];
 
   constructor(member: GuildMember, user: UserDocument) {
     super(member);
@@ -58,6 +61,17 @@ export class Player extends PlayerRPG {
     this.user.armor.push(armor.id);
   }
 
+  addInventory(item: Item) {
+    this.user.inventory.push(item.id);
+  }
+
+  removeInventory(item: Item, count = 1) {
+    const index = this.inventory.findIndex(x => x.id === item.id);
+    if (!index) {
+      this.user.inventory.splice(index, count);
+    }
+  }
+
   save() {
     return this.user.save();
   }
@@ -78,6 +92,9 @@ export class Player extends PlayerRPG {
 
     profile.addField("Level", inlineCode(this.level), true);
     profile.addField("xp", `\`${this.xp}/${this.requiredXP()}\``, true);
+
+    const chicken = this.inventory.filter(x => x.id === (new Chicken()).id);
+    profile.addField("Chickens", inlineCode(chicken.length), true);
 
     profile.addField("Armor", armor);
     return profile;
@@ -109,6 +126,11 @@ export class Player extends PlayerRPG {
         return BaseArmor.all.find(x => x.id === armorID)!;
       })
       .filter(x => x !== undefined);
+
+    const inventory = user.inventory
+      .map(itemID => Item.all.find(item => item.id === itemID)!);
+
+    player.inventory = inventory;
 
     pet?.setOwner(player);
 

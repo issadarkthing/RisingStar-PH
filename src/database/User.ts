@@ -11,6 +11,7 @@ const userSchema = new Schema({
   roles: { type: [{ roleID: String, since: Date }], default: [] },
   pet: String,
   armor: [String],
+  inventory: [String],
 });
 
 userSchema.statics.findByUserID = function(userID: string) {
@@ -27,6 +28,7 @@ export interface UserDocument extends Document {
   lastDailyClaim?: Date;
   pet: string;
   armor: string[];
+  inventory: string[];
 };
 
 export interface UserModel extends Model<UserDocument> {

@@ -6,6 +6,7 @@ import { CustomRole } from "../structure/CustomRole";
 import { BaseArmor } from "../structure/Armor";
 import { BasePet } from "../structure/Pet";
 import { EmbedTemplate } from "../structure/EmbedTemplate";
+import { Item } from "../structure/Item";
 
 
 export default class extends UserCommand {
@@ -21,10 +22,12 @@ export default class extends UserCommand {
       ...roles,
       ...BaseArmor.all,
       ...BasePet.all,
+      ...Item.all,
     ];
     const rpgs = [
       ...BaseArmor.all,
       ...BasePet.all,
+      ...Item.all,
     ];
     const [index] = args;
 
