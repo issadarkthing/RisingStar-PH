@@ -5,6 +5,7 @@ import { BROWN, toNList } from "../structure/utils";
 import { CustomRole } from "../structure/CustomRole";
 import { BaseArmor } from "../structure/Armor";
 import { BasePet } from "../structure/Pet";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 
 
 export default class extends UserCommand {
@@ -13,6 +14,7 @@ export default class extends UserCommand {
 
   async exec(msg: Message, args: string[]) {
 
+    const embed = new EmbedTemplate(msg);
     const rolesDB = await Role.find({ guildID: msg.guild!.id });
     const roles = rolesDB.map(role => new CustomRole(msg.guild!, role));
     const items = [
@@ -32,7 +34,7 @@ export default class extends UserCommand {
       const selected = items.at(parseInt(index) - 1);
 
       if (!selected) {
-        return msg.channel.send("no item found");
+        return embed.showError("no item found");
       }
 
       const info = selected.show();
@@ -70,11 +72,11 @@ export default class extends UserCommand {
     const rpgList = toNList(
       rpgs.map(x => `${x.name} \`${x.price} coins\``), roles.length + 1);
 
-    const embed = new MessageEmbed()
+    const shop = new MessageEmbed()
       .setColor(BROWN)
       .setTitle("Shop")
       .setDescription(roleList + "\n" + rpgList);
 
-    msg.channel.send({ embeds: [embed] });
+    msg.channel.send({ embeds: [shop] });
   }
 }

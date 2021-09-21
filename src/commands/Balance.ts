@@ -6,7 +6,7 @@ export default class Balance extends UserCommand {
   aliases = ["bal", "b"];
   description = "show player's balance";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const user = await this.getUser(msg.author.id);
 

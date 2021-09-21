@@ -11,6 +11,7 @@ export default class extends UserCommand {
 
   async exec(msg: Message, args: string[]) {
 
+    const embed = new EmbedTemplate(msg);
     const player = await this.getUser(msg.author.id);
     const [arg1] = args;
 
@@ -21,11 +22,10 @@ export default class extends UserCommand {
       amount = this.validateAmount(arg1, player.balance);
 
     } catch (err: any) {
-      msg.channel.send(err.message);
+      embed.showError(err.message);
       return;
     }
 
-    const embed = new EmbedTemplate(msg);
 
     const loadingMessage = await embed.showInfo("Fighting..");
 

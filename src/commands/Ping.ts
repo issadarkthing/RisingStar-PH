@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { UserCommand } from "../structure/UserCommand";
 
 export default class extends UserCommand {
@@ -6,6 +7,7 @@ export default class extends UserCommand {
   description = "ping NASA";
 
   async exec(msg: Message) {
-    msg.channel.send("pong");
+    const embed = new EmbedTemplate(msg);
+    embed.showError("pong");
   }
 }

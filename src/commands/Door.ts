@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { Button, UserCommand } from "../structure/UserCommand";
 import { random } from "../structure/utils";
 
@@ -10,6 +11,7 @@ export default class extends UserCommand {
 
     const arg1 = args[0];
     const player = await this.getUser(msg.author.id);
+    const embed = new EmbedTemplate(msg);
 
     let amount = 0;
 
@@ -17,7 +19,7 @@ export default class extends UserCommand {
       amount = this.validateAmount(arg1, player.balance);
 
     } catch (err: any) {
-      return msg.channel.send(err.message);
+      return embed.showError(err.message);
     }
 
     const buttons: Button[] = [
@@ -62,12 +64,12 @@ export default class extends UserCommand {
 
       if (selected === selectedDoor) {
         const reward = amount * 2;
-        msg.channel.send(`${member.displayName} got that bag!`);
-        msg.channel.send(`${member.displayName} earned ${reward}!`);
+        embed.showSuccess(`${member.displayName} got that bag!`);
+        embed.showSuccess(`${member.displayName} earned ${reward}!`);
 
         player.balance += reward;
       } else {
-        msg.channel.send(`${member.displayName} has lost ${amount}!`);
+        embed.showError(`${member.displayName} has lost ${amount}!`);
       }
 
       await player.save();

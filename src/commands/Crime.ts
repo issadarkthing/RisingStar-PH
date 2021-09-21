@@ -11,7 +11,7 @@ export default class Crime extends UserCommand {
   throttle = 40 * 1000; // 40 seconds
   description = "do crime and earn money";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const user = await this.getUser(msg.author.id);
     const earned = random().integer(this.min, this.max);

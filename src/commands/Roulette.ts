@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { UserCommand } from "../structure/UserCommand";
 import { random } from "../structure/utils";
 
@@ -9,11 +10,12 @@ export default class extends UserCommand {
   async exec(msg: Message, args: string[]) {
 
     const [arg1, arg2] = args;
+    const embed = new EmbedTemplate(msg);
 
     if (!arg1) {
-      return msg.channel.send("You must place a bet");
+      return embed.showError("You must place a bet");
     } else if (!arg2) {
-      return msg.channel.send("You must specify space");
+      return embed.showError("You must specify space");
     }
 
     let amount = 0;
@@ -23,7 +25,7 @@ export default class extends UserCommand {
       amount = this.validateAmount(arg1, player.balance);
 
     } catch (err: any) {
-      return msg.channel.send(err.message);
+      return embed.showError(err.message);
     }
 
     let multiplier = 1;
@@ -42,11 +44,11 @@ export default class extends UserCommand {
 
     if (multiplier > 1) {
       const winAmount = amount * multiplier;
-      msg.channel.send(`You have won ${winAmount}!`);
+      embed.showSuccess(`You have won ${winAmount}!`);
       player.balance += winAmount;
 
     } else {
-      msg.channel.send(`You have lost ${amount}`);
+      embed.showError(`You have lost ${amount}`);
 
     }
 

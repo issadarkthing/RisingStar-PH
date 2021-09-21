@@ -8,7 +8,7 @@ export default class Daily extends UserCommand {
   amount = 200;
   description = "claim your daily coin";
 
-  async exec(msg: Message, args: string[]) {
+  async exec(msg: Message) {
 
     const user = await this.getUser(msg.author.id);
     const now = DateTime.now();

@@ -3,6 +3,7 @@ import { Button, UserCommand } from "../structure/UserCommand";
 import fs from "fs";
 import path from "path";
 import { random } from "../structure/utils";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 
 export default class extends UserCommand {
   name = "quiz";
@@ -11,6 +12,7 @@ export default class extends UserCommand {
 
   async exec(msg: Message) {
 
+    const embed = new EmbedTemplate(msg);
     const dbPath = path.resolve("quiz.json");
     const file = fs.readFileSync(dbPath, { encoding: "utf8" });
     const db = JSON.parse(file);
@@ -32,7 +34,7 @@ export default class extends UserCommand {
 
     const result = await this.collect(msg, selectedQuestion, buttons);
 
-    await msg.channel.send(`The answer is: ${selectedAnswer}`);
+    await embed.showInfo(`The answer is: ${selectedAnswer}`);
 
     for (const [member, [selected]] of result) {
 
@@ -40,10 +42,12 @@ export default class extends UserCommand {
 
       if (selected === selectedAnswer) {
         const amount = 300;
-        await msg.channel.send(`${member.displayName} got it right!`);
-        await msg.channel.send(`${member.displayName} earned ${amount}!`);
+        await embed.showSuccess(`${member.displayName} got it right!`);
+        await embed.showSuccess(`${member.displayName} earned ${amount}!`);
         player.balance += amount;
         await player.save();
+      } else {
+        embed.showError(`${member.displayName} got it wrong`);
       }
     }
   }

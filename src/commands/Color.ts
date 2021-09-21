@@ -27,7 +27,7 @@ export default class Balance extends UserCommand {
     try {
       amount = this.validateAmount(arg1, user.balance);
     } catch (err: any) {
-      msg.channel.send(err.message);
+      embed.showError(err.message);
       return;
     }
 
@@ -67,11 +67,11 @@ export default class Balance extends UserCommand {
 
       if (multiplier > 1) {
         const winAmount = multiplier * amount;
-        msg.channel.send(`${member.displayName} has earned ${winAmount}!`);
+        embed.showSuccess(`${member.displayName} has earned ${winAmount}!`);
         player.balance += winAmount;
 
       } else {
-        msg.channel.send(`${member.displayName} has lost ${amount}!`);
+        embed.showError(`${member.displayName} has lost ${amount}!`);
 
       }
     }

@@ -1,5 +1,6 @@
 import { Message, MessageActionRow, MessageButton, MessageComponentInteraction, Collection } from "discord.js";
 import { UserDocument } from "../database/User";
+import { EmbedTemplate } from "../structure/EmbedTemplate";
 import { Options, Result, RockPaperScissors } from "../structure/RockPaperScissor";
 import { UserCommand } from "../structure/UserCommand";
 
@@ -11,11 +12,12 @@ export default class extends UserCommand {
   async exec(msg: Message, args: string[]) {
 
     const [arg1] = args;
+    const embed = new EmbedTemplate(msg);
     const mentions = msg.mentions.members;
     const opponent = mentions?.first();
 
     if (!opponent)
-      return msg.channel.send(`You need to mention a player`);
+      return embed.showError(`You need to mention a player`);
 
     const p1 = await this.getUser(msg.author.id);
     const p2 = await this.getUser(opponent.id);
@@ -29,7 +31,7 @@ export default class extends UserCommand {
       amount = this.validateAmount(arg1, p2.balance);
 
     } catch (err: any) {
-      msg.channel.send(err.message);
+      embed.showError(err.message);
       return;
     }
 
@@ -64,7 +66,7 @@ export default class extends UserCommand {
       const [[, button1], [, button2]] = buttons;
 
       if (!button1 || !button2) {
-        msg.channel.send("no response");
+        embed.showError("no response");
         return
       }
 
@@ -73,11 +75,11 @@ export default class extends UserCommand {
         button2.customId as Options,
       );
         
-      msg.channel.send(`${button1.user.username} chosed ${button1.customId}`);
-      msg.channel.send(`${button2.user.username} chosed ${button2.customId}`);
+      embed.showInfo(`${button1.user.username} chosed ${button1.customId}`);
+      embed.showInfo(`${button2.user.username} chosed ${button2.customId}`);
 
       if (result === Result.WIN) {
-        msg.channel.send(`${button1.user.username} wins ${amount} coins`)
+        embed.showSuccess(`${button1.user.username} wins ${amount} coins`)
         const p1 = players.get(button1.user.id)!;
         const p2 = players.filter(x => x.userID !== p1.userID).first()!;
         p1.balance += amount;
@@ -87,9 +89,9 @@ export default class extends UserCommand {
         await p2.save();
 
       } else if (result === Result.DRAW) {
-        msg.channel.send("Draw!");
+        embed.showSuccess("Draw!");
       } else if (result === Result.LOSE) {
-        msg.channel.send(`${button2.user.username} wins ${amount} coins`);
+        embed.showSuccess(`${button2.user.username} wins ${amount} coins`);
         const p1 = players.get(button1.user.id)!;
         const p2 = players.filter(x => x.userID !== p1.userID).first()!;
         p1.balance -= amount;

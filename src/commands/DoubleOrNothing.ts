@@ -11,7 +11,6 @@ export default class extends UserCommand {
   async exec(msg: Message) {
 
     const embed = new EmbedTemplate(msg);
-
     const loadingMessage = await embed.showInfo("Calculating the odds..");
 
     await sleep(4);
