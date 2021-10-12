@@ -2,9 +2,11 @@ import { Guild, Message, MessageEmbed, TextChannel } from "discord.js";
 import { UserCommand } from "../structure/UserCommand";
 import { User } from "../database/User";
 import { Player } from "../structure/Player";
-import { inlineCode, toNList, chunk } from "../structure/utils";
+import { chunk } from "../structure/utils";
 import { Pagination } from "discordjs-v13-button-pagination";
 import { stripIndents } from "common-tags";
+//@ts-ignore
+import Table from "table-layout";
 
 export default class extends UserCommand {
   name = "leaderboard";
@@ -24,18 +26,30 @@ export default class extends UserCommand {
                      .filter(x => !!x)
                      .map(x => Player.fromMember(x!)))
 
-    return players.map((x, i) => `${i+1}\t| ${x.netWorth()} | ${x.name}`);
+    return players.map((x, i) => ({ 
+      rank: i + 1, 
+      balance: x.netWorth(),
+      user: x.name,
+    }));
   }
 
   async create(guild: Guild) {
 
     const list = await this.getList(guild);
-    const listText = toNList(list);
+    const data = new Table(list, { minWidth: 5 });
 
     const embed = new MessageEmbed()
       .setColor("BLUE")
       .setTitle("Leaderboard")
-      .setDescription(listText);
+      .setDescription(
+        stripIndents`
+          \`\`\`yaml
+          Rank | Coins | Users
+          ===============================================
+          ${data.toString()}
+          \`\`\`
+        `
+      );
 
     return embed;
   }
@@ -45,6 +59,7 @@ export default class extends UserCommand {
 
     const embeds = chunk(list, 10)
       .map(x => {
+        const data = new Table(x, { minWidth: 5 });
         const embed = new MessageEmbed()
           .setTitle("Leaderboard")
           .setDescription(
@@ -52,7 +67,7 @@ export default class extends UserCommand {
             \`\`\`yaml
             Rank | Coins | Users
             ===============================================
-            ${x.join("\n")}
+            ${data.toString()}
             \`\`\`
             `
           )
