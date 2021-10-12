@@ -22,6 +22,15 @@ export function toNList(items: string[], start = 1) {
   return items.map((x, i) => `${i + start}. ${x}`).join("\n");
 }
 
+export function chunk<T>(arr: T[], chunkSize: number) {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+        const chunk = arr.slice(i, i + chunkSize);
+        res.push(chunk);
+    }
+    return res;
+}
+
 export async function nukeChannel(channel: TextChannel | DMChannel) {
   let deleted = 0;
   do {

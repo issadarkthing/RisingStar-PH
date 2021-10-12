@@ -201,6 +201,13 @@ discordjs-rpg@^1.0.6:
     lodash.clonedeep "^4.5.0"
     random-js "^2.1.0"
 
+discordjs-v13-button-pagination@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/discordjs-v13-button-pagination/-/discordjs-v13-button-pagination-1.0.7.tgz#a4b681b3e79ec7917ccbf690367995e594c7aa51"
+  integrity sha512-2JXwcvh8i/3KTv4ZqxvGdgI7ACuWVuQqqZTnENwwCaAA/Rcad3zPUTN33nBVSsbLl7g3hVJAkMi9tleycAaPqw==
+  dependencies:
+    discord.js "^13.1.0"
+
 dot-prop@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-6.0.1.tgz#fc26b3cf142b9e59b74dbd39ed66ce620c681083"
