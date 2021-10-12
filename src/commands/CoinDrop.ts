@@ -5,7 +5,7 @@ import { GREEN, random } from "../structure/utils";
 export default class CoinDrop extends UserCommand {
   name = "drop";
   amount = random().integer(1000, 3000);
-  disable = false;
+  disable = true;
   spawnAt = 500;
 
   exec(msg: Message) {
