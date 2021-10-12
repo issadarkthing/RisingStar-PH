@@ -26,9 +26,16 @@ export default class extends UserCommand {
     const buttons: Button[] = [];
 
     for (const answer of random().shuffle([selectedAnswer, ...randomAnswers])) {
+
+      let { id, label } = answer;
+
+      if (typeof id === "number") {
+        id = id.toString();
+      }
+
       buttons.push({
-        id: answer,
-        label: answer,
+        id,
+        label,
       });
     }
 
