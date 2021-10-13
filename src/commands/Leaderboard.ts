@@ -35,7 +35,7 @@ export default class extends UserCommand {
 
   async create(guild: Guild) {
 
-    const list = await this.getList(guild);
+    const list = (await this.getList(guild)).slice(0, 100);
     const data = new Table(list, { minWidth: 5 });
 
     const embed = new MessageEmbed()
