@@ -81,6 +81,8 @@ export default class extends UserCommand {
       "page",
     );
 
-    await pagination.paginate();
+    try {
+      await pagination.paginate();
+    } catch {}
   } 
 }
