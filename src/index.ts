@@ -58,20 +58,22 @@ client.on("ready", () => {
 })
 
 let messageCount = 0;
-client.on("messageCreate", msg => { 
+client.on("messageCreate", async msg => { 
 
   if (!msg.guild) return;
 
   messageCount++;
   commandManager.handleMessage(msg); 
 
-  CustomRole.checkRoles(msg.guild);
-
   const coinDrop = new CoinDrop();
   if (messageCount >= coinDrop.spawnAt) {
     messageCount = 0; 
     coinDrop.exec(msg);
   }
+
+  await msg.guild.roles.fetch();
+  CustomRole.checkRoles(msg.guild);
+
 });
 
 client.login(process.env.BOT_TOKEN);
