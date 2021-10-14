@@ -58,7 +58,7 @@ client.on("ready", () => {
 })
 
 let messageCount = 0;
-client.on("messageCreate", async msg => { 
+client.on("messageCreate", msg => { 
 
   if (!msg.guild) return;
 
@@ -71,7 +71,6 @@ client.on("messageCreate", async msg => {
     coinDrop.exec(msg);
   }
 
-  await msg.guild.roles.fetch();
   CustomRole.checkRoles(msg.guild);
 
 });

@@ -64,30 +64,34 @@ export class CustomRole {
 
     for (const role of roles) {
 
-      const customRole = new CustomRole(guild, role);
+      try {
+        const customRole = new CustomRole(guild, role);
+        for (const [, member] of customRole.role.members) {
 
-      for (const [, member] of customRole.role.members) {
-        
-        const ping = new Ping();
-        const user = await ping.getUser(member.id);
+          const ping = new Ping();
+          const user = await ping.getUser(member.id);
 
-        if (!user) continue;
+          if (!user) continue;
 
-        const ownedRole = user.roles.find(x => x.roleID === role.roleID);
+          const ownedRole = user.roles.find(x => x.roleID === role.roleID);
 
-        if (!ownedRole) continue;
+          if (!ownedRole) continue;
 
-        const expiry = DateTime.fromJSDate(ownedRole.since).plus({ days: 30 });
-        const now = DateTime.now();
+          const expiry = DateTime.fromJSDate(ownedRole.since).plus({ days: 30 });
+          const now = DateTime.now();
 
-        if (expiry <= now) {
+          if (expiry <= now) {
 
-          user.roles = user.roles.filter(x => x.roleID === role.roleID);
-          member.roles.remove(role.roleID);
+            user.roles = user.roles.filter(x => x.roleID === role.roleID);
+            member.roles.remove(role.roleID);
 
-          await user.save();
+            await user.save();
+          }
         }
+      } catch {
+        continue;
       }
+
     }
   }
 }
