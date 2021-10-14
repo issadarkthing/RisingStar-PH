@@ -27,6 +27,8 @@ commandManager.registerCommandOnThrottleHandler((msg, cmd, timeLeft) => {
   msg.channel.send(`You cannot run ${cmd.name} command after ${time} s`);
 });
 
+process.on("uncaughtException", () => {});
+
 client.on("ready", () => {
   console.log(client.user?.username, "is ready!");
 
@@ -63,7 +65,8 @@ client.on("messageCreate", msg => {
   if (!msg.guild) return;
 
   messageCount++;
-  commandManager.handleMessage(msg); 
+  commandManager.handleMessage(msg)
+    .catch(() => {});
 
   const coinDrop = new CoinDrop();
   if (messageCount >= coinDrop.spawnAt) {
