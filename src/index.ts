@@ -48,7 +48,6 @@ client.on("ready", () => {
     if (!channel || !guild)
       return;
 
-    await guild.members.fetch();
     const leaderboard = new Leaderboard();
     const info = await leaderboard.create(guild);
 
