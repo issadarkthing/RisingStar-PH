@@ -70,7 +70,7 @@ export abstract class UserCommand extends Command {
 
     const result = new Map<GuildMember, string[]>();
 
-    collector.on("collect", async button => {
+    collector.on("collect", button => {
       const { member, customId: id } = button;
 
       if (member instanceof GuildMember) {
@@ -93,7 +93,8 @@ export abstract class UserCommand extends Command {
         button.reply({ 
           content: `You clicked ${id}`, 
           ephemeral: true,
-        });
+        })
+        .catch(() => {})
       }
 
     })

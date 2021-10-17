@@ -56,7 +56,7 @@ export default class extends UserCommand {
     const message = await msg.channel.send({ content: "Please select", components: [row] });
 
     const filter = (i: MessageComponentInteraction) => {
-      i.deferUpdate();
+      i.deferUpdate().catch(() => {});
       return i.user.id === msg.author.id || i.user.id === opponent.id;
     };
 

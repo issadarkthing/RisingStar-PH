@@ -53,7 +53,7 @@ export default class extends UserCommand {
       msg.channel.send({ embeds: [info], components: [row] });
 
       const filter = (i: MessageComponentInteraction) => {
-        i.deferUpdate();
+        i.deferUpdate().catch(() => {});
         return i.user.id === msg.author.id;
       }
 
