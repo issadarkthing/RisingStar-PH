@@ -1,7 +1,6 @@
 import { Guild, Message, MessageEmbed, TextChannel } from "discord.js";
 import { UserCommand } from "../structure/UserCommand";
 import { User } from "../database/User";
-import { Player } from "../structure/Player";
 import { chunk } from "../structure/utils";
 import { Pagination } from "discordjs-v13-button-pagination";
 import { stripIndents } from "common-tags";
@@ -21,16 +20,13 @@ export default class extends UserCommand {
 
     const members = guild.members.cache;
 
-    const players = await Promise.all(users
-                     .map(x => members.get(x.userID))
-                     .filter(x => !!x)
-                     .map(x => Player.fromMember(x!)))
-
-    return players.map((x, i) => ({ 
-      rank: i + 1, 
-      balance: x.netWorth(),
-      user: x.name,
-    }));
+    return users
+      .filter(x => members.has(x.userID))
+      .map((x, i) => ({ 
+        rank: i + 1, 
+        balance: x.balance + x.bank,
+        user: members.get(x.userID)!.displayName,
+      }));
   }
 
   async create(guild: Guild) {
