@@ -36,13 +36,14 @@
     mime-types "^2.1.12"
 
 "@jiman24/commandment@^0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.2.5.tgz#070769cacfda4664b065d991a0ce8980c93c699a"
-  integrity sha512-ZtlxntMkeQWfGxa9GSp0hfJg3b5Fg11jksWX3/OyXZPz9STEGD+5nedZlBXKXE1Yg3pMyHR8U/2Ia7oMAPGdzQ==
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@jiman24/commandment/-/commandment-0.2.6.tgz#b529004c696aef6f8c214f4c4afcc2342a384621"
+  integrity sha512-3pFg8eBtGXnBZT306WpBoED/jPb6pO8gXH62ncmbChYXMhp06BGhV0jI5HWDOa8IZis/H2TZ9QjUs/NqHzY1rA==
   dependencies:
     chalk "^4.1.2"
     common-tags "^1.8.0"
     discord.js "^13.1.0"
+    table-layout "^3.0.0"
 
 "@sapphire/async-queue@^1.1.4":
   version "1.1.4"
