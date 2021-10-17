@@ -18,6 +18,7 @@ export default class extends UserCommand {
 
     users.sort((a, b) => (b.balance + b.bank) - (a.balance + a.bank));
 
+    await guild.members.fetch();
     const members = guild.members.cache;
 
     return users
@@ -51,6 +52,7 @@ export default class extends UserCommand {
   }
 
   async exec(msg: Message) {
+
     const list = await this.getList(msg.guild!);
 
     const embeds = chunk(list, 10)
